@@ -55,7 +55,7 @@ namespace DashCourtApi.Services
                         Court = GetCellValueAsString(worksheet.Cells[row, 4]),
                         District = GetCellValueAsString(worksheet.Cells[row, 3]),
                         Cycle = GetCellValueAsString(worksheet.Cells[row, 11]),
-                        OriginalCycle = GetCellValueAsString(worksheet.Cells[row, 2])
+                        OriginalCycle = GetCellValueAsString(worksheet.Cells[row, 1]) // Corrected mapping to column 1
                     });
                 }
             }
@@ -140,7 +140,7 @@ namespace DashCourtApi.Services
                         Procedure = GetCellValueAsString(worksheet.Cells[row, 5]),
                         Court = GetCellValueAsString(worksheet.Cells[row, 4]),
                         District = GetCellValueAsString(worksheet.Cells[row, 3]),
-                        OriginalCycle = GetCellValueAsString(worksheet.Cells[row, 2])
+                        OriginalCycle = GetCellValueAsString(worksheet.Cells[row, 1])
                     });
                 }
             }
@@ -153,8 +153,8 @@ namespace DashCourtApi.Services
             {
                 return new List<Inv3Model>
                 {
-                    new Inv3Model { BaseYear = 2022, DaysInSystem = 300, Average = 250.5m, CurrentInventory = 1000, Year = 2023, YearAndMonth = "2023-01", CaseType = "MockInv3", Procedure = "MockProc", Court = "MockCourt", District = "MockDist", OriginalCycle = "MockOrigCycle" },
-                    new Inv3Model { BaseYear = 2022, DaysInSystem = 320, Average = 260.0m, CurrentInventory = 1100, Year = 2023, YearAndMonth = "2023-02", CaseType = "MockInv32", Procedure = "MockProc2", Court = "MockCourt2", District = "MockDist2", OriginalCycle = "MockOrigCycle2" }
+                    new Inv3Model { DaysInSystem = 300, Average = 250.5m, CurrentInventory = 1000, Year = 2023, YearAndMonth = "2023-01", CaseType = "MockInv3", Procedure = "MockProc", Court = "MockCourt", District = "MockDist", OriginalCycle = "MockOrigCycle" },
+                    new Inv3Model { DaysInSystem = 320, Average = 260.0m, CurrentInventory = 1100, Year = 2023, YearAndMonth = "2023-02", CaseType = "MockInv32", Procedure = "MockProc2", Court = "MockCourt2", District = "MockDist2", OriginalCycle = "MockOrigCycle2" }
                 };
             }
 
@@ -174,7 +174,6 @@ namespace DashCourtApi.Services
                 {
                     data.Add(new Inv3Model
                     {
-                        BaseYear = GetCellValueAsInt(worksheet.Cells[row, 8]),
                         DaysInSystem = GetCellValueAsInt(worksheet.Cells[row, 11]),
                         Average = GetCellValueAsDecimal(worksheet.Cells[row, 10]),
                         CurrentInventory = GetCellValueAsInt(worksheet.Cells[row, 9]),
@@ -184,7 +183,7 @@ namespace DashCourtApi.Services
                         Procedure = GetCellValueAsString(worksheet.Cells[row, 5]),
                         Court = GetCellValueAsString(worksheet.Cells[row, 4]),
                         District = GetCellValueAsString(worksheet.Cells[row, 3]),
-                        OriginalCycle = GetCellValueAsString(worksheet.Cells[row, 2])
+                        OriginalCycle = GetCellValueAsString(worksheet.Cells[row, 1]) // Corrected mapping to column 1
                     });
                 }
             }

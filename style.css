@@ -20,3 +20,18 @@ canvas {
     height: auto !important;
 }
 
+.kpi-card,
+.chart-card {
+    border: 1px solid transparent;
+}
+
+.kpi-card:hover,
+.chart-card:hover {
+    border-color: #005689; /* A shade of blue for hover effect */
+}
+
+/* Optional: Adjust font size of KPI numbers if not sufficiently handled by Tailwind classes */
+.kpi-card p.text-lg {
+    font-size: 1.25rem; /* Equivalent to text-xl in Tailwind */
+}
+

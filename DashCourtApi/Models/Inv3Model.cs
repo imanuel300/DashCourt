@@ -2,7 +2,6 @@ namespace DashCourtApi.Models
 {
     public class Inv3Model
     {
-        public int BaseYear { get; set; }
         public int DaysInSystem { get; set; }
         public decimal Average { get; set; }
         public int CurrentInventory { get; set; }

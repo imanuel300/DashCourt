@@ -42,7 +42,7 @@
             </div>
             <div class="relative">
                 <select id="court-filter" class="block appearance-none bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                    <option value="all">סוג בית משפט</option>
+                    <option value="all">מחוז</option>
                     <!-- Options populated by JS -->
                 </select>
                 <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center px-2 text-gray-700">
@@ -51,7 +51,7 @@
             </div>
             <div class="relative">
                 <select id="case-type-filter" class="block appearance-none bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                    <option value="all">סוג תיק</option>
+                    <option value="all">ערכאה</option>
                     <!-- Options populated by JS -->
                 </select>
                 <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center px-2 text-gray-700">
@@ -64,47 +64,47 @@
 
     <main class="container mx-auto p-4 grid grid-cols-1 md:grid-cols-3 gap-6">
         <!-- KPIs Section -->
-        <section class="md:col-span-1 bg-white p-6 rounded-lg shadow-md">
-            <h2 class="text-xl font-semibold mb-4">נתוני כוח אדם</h2>
-            <div class="space-y-4">
+        <section class="md:col-span-1 bg-white p-4 rounded-lg shadow-md kpi-card transition duration-300 ease-in-out hover:border-blue-500">
+            <h2 class="text-xl font-semibold mb-2">נתוני כוח אדם</h2>
+            <div class="space-y-2">
                 <div class="flex justify-between items-center">
                     <p class="text-gray-700">שופטים</p>
-                    <p class="font-bold text-blue-700" id="kpi-judges">850</p>
+                    <p class="font-bold text-lg text-blue-700" id="kpi-judges">850</p>
                 </div>
                 <div class="flex justify-between items-center">
                     <p class="text-gray-700">רשמים</p>
-                    <p class="font-bold text-blue-700" id="kpi-registrars">70</p>
+                    <p class="font-bold text-lg text-blue-700" id="kpi-registrars">70</p>
                 </div>
                 <div class="flex justify-between items-center">
                     <p class="text-gray-700">עובדים</p>
-                    <p class="font-bold text-blue-700" id="kpi-employees">4,500</p>
+                    <p class="font-bold text-lg text-blue-700" id="kpi-employees">4,500</p>
                 </div>
             </div>
         </section>
 
         <!-- Charts Section -->
-        <section class="md:col-span-2 space-y-6">
+        <section class="md:col-span-2 space-y-4">
             <!-- Movements Chart -->
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <h2 class="text-xl font-semibold mb-4">תנועות תיקים</h2>
+            <div class="bg-white p-4 rounded-lg shadow-md chart-card transition duration-300 ease-in-out hover:border-blue-500">
+                <h2 class="text-xl font-semibold mb-2">תנועות תיקים</h2>
                 <canvas id="movementsChart"></canvas>
             </div>
 
             <!-- CR Chart -->
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <h2 class="text-xl font-semibold mb-4">קצב סגירת תיקים (CR)</h2>
+            <div class="bg-white p-4 rounded-lg shadow-md chart-card transition duration-300 ease-in-out hover:border-blue-500">
+                <h2 class="text-xl font-semibold mb-2">קצב סגירת תיקים (CR)</h2>
                 <canvas id="crChart"></canvas>
             </div>
 
             <!-- Average Case Duration Chart -->
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <h2 class="text-xl font-semibold mb-4">ממוצע אורך חיי תיק בחודשים</h2>
+            <div class="bg-white p-4 rounded-lg shadow-md chart-card transition duration-300 ease-in-out hover:border-blue-500">
+                <h2 class="text-xl font-semibold mb-2">ממוצע אורך חיי תיק בחודשים</h2>
                 <canvas id="avgDurationChart"></canvas>
             </div>
             
             <!-- Hearings Chart -->
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <h2 class="text-xl font-semibold mb-4">דיונים שהתקיימו</h2>
+            <div class="bg-white p-4 rounded-lg shadow-md chart-card transition duration-300 ease-in-out hover:border-blue-500">
+                <h2 class="text-xl font-semibold mb-2">דיונים שהתקיימו</h2>
                 <canvas id="hearingsChart"></canvas>
             </div>
         </section>

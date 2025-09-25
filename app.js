@@ -48,14 +48,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Populate Court Types (from CR data as an example)
         const allCourts = new Set();
-        allCrData.forEach(item => allCourts.add(item.Court));
-        courtSelect.innerHTML = '<option value="all">סוג בית משפט</option>' + 
+        allCrData.forEach(item => allCourts.add(item.District)); // Changed to District
+        courtSelect.innerHTML = '<option value="all">מחוז</option>' + 
             Array.from(allCourts).sort().map(court => `<option value="${court}">${court}</option>`).join('');
 
         // Populate Case Types (from CR data as an example)
         const allCaseTypes = new Set();
-        allCrData.forEach(item => allCaseTypes.add(item.CaseType));
-        caseTypeSelect.innerHTML = '<option value="all">סוג תיק</option>' + 
+        allCrData.forEach(item => allCaseTypes.add(item.OriginalCycle));
+        allAvgoData.forEach(item => allCaseTypes.add(item.OriginalCycle));
+        allSitData.forEach(item => allCaseTypes.add(item.OriginalCycle));
+        allInv3Data.forEach(item => allCaseTypes.add(item.OriginalCycle));
+        caseTypeSelect.innerHTML = '<option value="all">ערכאה</option>' + 
             Array.from(allCaseTypes).sort().map(caseType => `<option value="${caseType}">${caseType}</option>`).join('');
     };
 
@@ -67,8 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const filterData = (data) => {
             return data.filter(item => {
                 const matchYear = selectedYear === 'all' || item.Year == selectedYear;
-                const matchCourt = selectedCourt === 'all' || item.Court === selectedCourt;
-                const matchCaseType = selectedCaseType === 'all' || item.CaseType === selectedCaseType;
+                const matchCourt = selectedCourt === 'all' || item.District === selectedCourt; // Changed to District
+                const matchCaseType = selectedCaseType === 'all' || item.OriginalCycle === selectedCaseType; // Changed to OriginalCycle
                 return matchYear && matchCourt && matchCaseType;
             });
         };
