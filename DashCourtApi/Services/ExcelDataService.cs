@@ -42,17 +42,17 @@ namespace DashCourtApi.Services
                 {
                     data.Add(new CRModel
                     {
-                        Inventory = GetCellValueAsInt(worksheet.Cells[row, 2]),
-                        Year = GetCellValueAsInt(worksheet.Cells[row, 3]),
-                        CR = GetCellValueAsDecimal(worksheet.Cells[row, 4], true), // true for percentage
-                        Opened = GetCellValueAsInt(worksheet.Cells[row, 5]),
-                        Closed = GetCellValueAsInt(worksheet.Cells[row, 6]),
-                        CaseType = GetCellValueAsString(worksheet.Cells[row, 7]),
-                        Procedure = GetCellValueAsString(worksheet.Cells[row, 8]),
-                        Court = GetCellValueAsString(worksheet.Cells[row, 9]),
-                        District = GetCellValueAsString(worksheet.Cells[row, 10]),
+                        Inventory = GetCellValueAsInt(worksheet.Cells[row, 12]),
+                        Year = GetCellValueAsInt(worksheet.Cells[row, 10]),
+                        CR = GetCellValueAsDecimal(worksheet.Cells[row, 9], true), // true for percentage
+                        Opened = GetCellValueAsInt(worksheet.Cells[row, 7]),
+                        Closed = GetCellValueAsInt(worksheet.Cells[row, 8]),
+                        CaseType = GetCellValueAsString(worksheet.Cells[row, 6]),
+                        Procedure = GetCellValueAsString(worksheet.Cells[row, 5]),
+                        Court = GetCellValueAsString(worksheet.Cells[row, 4]),
+                        District = GetCellValueAsString(worksheet.Cells[row, 3]),
                         Cycle = GetCellValueAsString(worksheet.Cells[row, 11]),
-                        OriginalCycle = GetCellValueAsString(worksheet.Cells[row, 12])
+                        OriginalCycle = GetCellValueAsString(worksheet.Cells[row, 2])
                     });
                 }
             }
@@ -86,15 +86,15 @@ namespace DashCourtApi.Services
                 {
                     data.Add(new AVGOModel
                     {
-                        Year = GetCellValueAsInt(worksheet.Cells[row, 2]),
-                        DateCycle = GetCellValueAsString(worksheet.Cells[row, 3]),
-                        AverageDays = GetCellValueAsDecimal(worksheet.Cells[row, 4]),
-                        NumberOfCases = GetCellValueAsInt(worksheet.Cells[row, 5]),
+                        Year = GetCellValueAsInt(worksheet.Cells[row, 10]),
+                        DateCycle = null, // Not directly available in the provided Excel data
+                        AverageDays = GetCellValueAsDecimal(worksheet.Cells[row, 8]),
+                        NumberOfCases = 0, // Not directly available in the provided Excel data
                         CaseType = GetCellValueAsString(worksheet.Cells[row, 6]),
-                        Procedure = GetCellValueAsString(worksheet.Cells[row, 8]),
-                        Court = GetCellValueAsString(worksheet.Cells[row, 9]),
-                        District = GetCellValueAsString(worksheet.Cells[row, 10]),
-                        OriginalCycle = GetCellValueAsString(worksheet.Cells[row, 11])
+                        Procedure = GetCellValueAsString(worksheet.Cells[row, 5]),
+                        Court = GetCellValueAsString(worksheet.Cells[row, 4]),
+                        District = GetCellValueAsString(worksheet.Cells[row, 3]),
+                        OriginalCycle = GetCellValueAsString(worksheet.Cells[row, 1]) // ערכאה
                     });
                 }
             }
@@ -128,15 +128,15 @@ namespace DashCourtApi.Services
                 {
                     data.Add(new SITModel
                     {
-                        Year = GetCellValueAsInt(worksheet.Cells[row, 2]),
-                        DelaysPercentage = GetCellValueAsDecimal(worksheet.Cells[row, 3], true),
-                        Rejected = GetCellValueAsInt(worksheet.Cells[row, 4]),
-                        Hearings = GetCellValueAsInt(worksheet.Cells[row, 5]),
+                        Year = GetCellValueAsInt(worksheet.Cells[row, 10]),
+                        DelaysPercentage = GetCellValueAsDecimal(worksheet.Cells[row, 9], true),
+                        Rejected = GetCellValueAsInt(worksheet.Cells[row, 8]),
+                        Hearings = GetCellValueAsInt(worksheet.Cells[row, 7]),
                         CaseType = GetCellValueAsString(worksheet.Cells[row, 6]),
-                        Procedure = GetCellValueAsString(worksheet.Cells[row, 7]),
-                        Court = GetCellValueAsString(worksheet.Cells[row, 8]),
-                        District = GetCellValueAsString(worksheet.Cells[row, 9]),
-                        OriginalCycle = GetCellValueAsString(worksheet.Cells[row, 10])
+                        Procedure = GetCellValueAsString(worksheet.Cells[row, 5]),
+                        Court = GetCellValueAsString(worksheet.Cells[row, 4]),
+                        District = GetCellValueAsString(worksheet.Cells[row, 3]),
+                        OriginalCycle = GetCellValueAsString(worksheet.Cells[row, 2])
                     });
                 }
             }
@@ -170,17 +170,17 @@ namespace DashCourtApi.Services
                 {
                     data.Add(new Inv3Model
                     {
-                        BaseYear = GetCellValueAsInt(worksheet.Cells[row, 2]),
-                        DaysInSystem = GetCellValueAsInt(worksheet.Cells[row, 3]),
-                        Average = GetCellValueAsDecimal(worksheet.Cells[row, 4]),
-                        CurrentInventory = GetCellValueAsInt(worksheet.Cells[row, 5]),
-                        Year = GetCellValueAsInt(worksheet.Cells[row, 6]),
+                        BaseYear = GetCellValueAsInt(worksheet.Cells[row, 8]),
+                        DaysInSystem = GetCellValueAsInt(worksheet.Cells[row, 11]),
+                        Average = GetCellValueAsDecimal(worksheet.Cells[row, 10]),
+                        CurrentInventory = GetCellValueAsInt(worksheet.Cells[row, 9]),
+                        Year = GetCellValueAsInt(worksheet.Cells[row, 8]),
                         YearAndMonth = GetCellValueAsString(worksheet.Cells[row, 7]),
-                        CaseType = GetCellValueAsString(worksheet.Cells[row, 8]),
-                        Procedure = GetCellValueAsString(worksheet.Cells[row, 9]),
-                        Court = GetCellValueAsString(worksheet.Cells[row, 10]),
-                        District = GetCellValueAsString(worksheet.Cells[row, 11]),
-                        OriginalCycle = GetCellValueAsString(worksheet.Cells[row, 12])
+                        CaseType = GetCellValueAsString(worksheet.Cells[row, 6]),
+                        Procedure = GetCellValueAsString(worksheet.Cells[row, 5]),
+                        Court = GetCellValueAsString(worksheet.Cells[row, 4]),
+                        District = GetCellValueAsString(worksheet.Cells[row, 3]),
+                        OriginalCycle = GetCellValueAsString(worksheet.Cells[row, 2])
                     });
                 }
             }
