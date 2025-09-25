@@ -313,18 +313,15 @@ document.addEventListener('DOMContentLoaded', () => {
                             }
                         }
                     },
-                    // datalabels: { // Removed datalabels plugin
-                    //     color: '#000',
-                    //     font: {
-                    //         weight: 'bold'
-                    //     }
-                    // }
+                    datalabels: { // Explicitly disable datalabels for this chart
+                        display: false
+                    }
                 },
                 scales: {
                     y: { beginAtZero: true }
                 }
             },
-            // plugins: [ChartDataLabels] // Removed ChartDataLabels plugin from here as well
+            // plugins: [ChartDataLabels] // Ensure ChartDataLabels plugin is not explicitly included here
         });
 
         // Hearings Chart (דיונים שהתקיימו)
@@ -358,7 +355,6 @@ document.addEventListener('DOMContentLoaded', () => {
                                 } 
                                 return value.toLocaleString();
                             }
-                           
                         }
                     }
                 ],
@@ -369,16 +365,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 plugins: {
                     legend: {
                         display: false // Hide the legend for this chart
-                    },
-                    datalabels: {
-                        color: '#fff', // Set color to white for better visibility inside the bar
-                        font: {
-                            size: 14, // Increase font size
-                            weight: 'bold'
-                        },
-                        align: 'right', // Align to the right to move it slightly right
-                        anchor: 'end', // Keep anchor at end for top positioning
-                        display: true, // Ensure datalabels are displayed
                     },
                     tooltip: { // Disable tooltip for this chart again
                         enabled: false
