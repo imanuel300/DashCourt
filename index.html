@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="he">
+<html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DashCourt Dashboard</title>
+    <link rel="icon" href="logo DC.png" type="image/png">
     <!-- TailwindCSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <!-- Chart.js CDN -->
@@ -11,18 +12,101 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-100 p-4">
-    <div class="container mx-auto">
-        <h1 class="text-3xl font-bold text-center mb-6">DashCourt Dashboard</h1>
-        
-        <div id="data-display" class="bg-white p-6 rounded-lg shadow-md">
-            <h2 class="text-2xl font-semibold mb-4">CR Data</h2>
-            <div id="cr-data-list">
-                <!-- CR data will be loaded here by JavaScript -->
-                <p>Loading CR data...</p>
+<body class="bg-gray-100 font-sans">
+    <header class="bg-blue-800 text-white p-4 flex justify-between items-center">
+        <div class="flex items-center">
+            <img src="logo DC.png" alt="DashCourt Logo" class="h-10 ml-3">
+            <span class="text-2xl font-bold">DashCourt</span>
+        </div>
+        <div class="flex items-center">
+            <div class="text-right mr-3">
+                <p class="text-sm">מדינת ישראל הרשות השופטת</p>
+                <p class="text-xs">The Israel Judicial Authority</p>
+            </div>
+            <img src="logo.png" alt="Israel Ministry of Justice Logo" class="h-10">
+        </div>
+    </header>
+
+    <div class="bg-white shadow-md p-4 mb-6 flex justify-between items-center">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">לצפייה בפירוט &lt;</button>
+        <div class="flex items-center space-x-4 space-x-reverse">
+            <div class="relative">
+                <select id="year-filter" class="block appearance-none bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option value="all">שנה</option>
+                    <!-- Options populated by JS -->
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 6.096 6.924 4.682 8.338z"/></svg>
+                </div>
+            </div>
+            <div class="relative">
+                <select id="court-filter" class="block appearance-none bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option value="all">סוג בית משפט</option>
+                    <!-- Options populated by JS -->
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 6.096 6.924 4.682 8.338z"/></svg>
+                </div>
+            </div>
+            <div class="relative">
+                <select id="case-type-filter" class="block appearance-none bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <option value="all">סוג תיק</option>
+                    <!-- Options populated by JS -->
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center px-2 text-gray-700">
+                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 6.096 6.924 4.682 8.338z"/></svg>
+                </div>
             </div>
         </div>
     </div>
+
+    <main class="container mx-auto p-4 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- KPIs Section -->
+        <section class="md:col-span-1 bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold mb-4">נתוני כוח אדם</h2>
+            <div class="space-y-4">
+                <div class="flex justify-between items-center">
+                    <p class="text-gray-700">שופטים</p>
+                    <p class="font-bold text-blue-700" id="kpi-judges">850</p>
+                </div>
+                <div class="flex justify-between items-center">
+                    <p class="text-gray-700">רשמים</p>
+                    <p class="font-bold text-blue-700" id="kpi-registrars">70</p>
+                </div>
+                <div class="flex justify-between items-center">
+                    <p class="text-gray-700">עובדים</p>
+                    <p class="font-bold text-blue-700" id="kpi-employees">4,500</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts Section -->
+        <section class="md:col-span-2 space-y-6">
+            <!-- Movements Chart -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold mb-4">תנועות תיקים</h2>
+                <canvas id="movementsChart"></canvas>
+            </div>
+
+            <!-- CR Chart -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold mb-4">קצב סגירת תיקים (CR)</h2>
+                <canvas id="crChart"></canvas>
+            </div>
+
+            <!-- Average Case Duration Chart -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold mb-4">ממוצע אורך חיי תיק בחודשים</h2>
+                <canvas id="avgDurationChart"></canvas>
+            </div>
+            
+            <!-- Hearings Chart -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-xl font-semibold mb-4">דיונים שהתקיימו</h2>
+                <canvas id="hearingsChart"></canvas>
+            </div>
+        </section>
+    </main>
 
     <script src="app.js"></script>
 </body>

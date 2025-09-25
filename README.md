@@ -24,7 +24,7 @@ ________________________________________
     appsettings.json     ← קובץ תצורה
     Program.cs           ← נקודת כניסה של האפליקציה
   / 
-    index.html         ← דף הדשבורד (שורש הפרויקט)
+    index.html         ← דף הדשבורד (שורש הפרויקט - ניתן לגשת דרך `http://localhost:8000/index.html`)
     style.css          ← הרחבות עיצוב אם צריך (שורש הפרויקט)
     app.js             ← קוד JS לקריאות API והצגת נתונים (שורש הפרויקט)
  
@@ -62,5 +62,10 @@ ________________________________________
 •	AVGO Data: `http://localhost:5003/Data/avgo`
 •	SIT Data: `http://localhost:5003/Data/sit`
 •	Inv3 Data: `http://localhost:5003/Data/inv3`
+
+7. הוראות הפעלה
+   א. וודא ששרת ה־API פועל: נווט לתיקיית `DashCourtApi` והרץ `dotnet run`.
+   ב. הרץ שרת HTTP סטטי עבור הפרונטאנד: נווט לשורש הפרויקט (`DashCourt`) והרץ `python -m http.server 8000`.
+   ג. גש לדשבורד דרך הדפדפן: `http://localhost:8000/index.html`
 
 

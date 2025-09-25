@@ -1,0 +1,18 @@
+.container {
+    max-width: 1200px;
+}
+
+/* Custom styles for select dropdowns to match Figma - if Tailwind default isn't enough */
+select {
+    background-position: left 0.75rem center;
+    padding-right: 2.5rem; /* Space for the custom arrow */
+    padding-left: 1rem;
+}
+
+/* Example for a custom arrow if needed - can be done with Tailwind too */
+/* select.custom-select-arrow {
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007BB5%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13.2-6.2H18.2c-4.1%200-7.9%201.8-10.9%204.8-3.9%203.1-6.2%207.2-6.2%2012.3%200%205.1%202.3%209.2%206.2%2012.3L124.6%20256.4c3%203%206.9%204.8%2010.9%204.8s7.9-1.8%2010.9-4.8l116.3-116.3c3.9-3.1%206.2-7.2%206.2-12.3-.1-5.1-2.4-9.2-6.3-12.3z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-size: 0.8rem 0.8rem;
+    background-position: right 0.75rem center;
+} */
