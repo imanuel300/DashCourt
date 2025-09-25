@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const API_BASE_URL = 'http://localhost:5003/Data';
+    const API_BASE_URL = 'DashCourtApi/XLSX'; // Changed to point to the directory containing JSON files
 
     // Global data storage
     let allCrData = [], allAvgoData = [], allSitData = [], allInv3Data = [];
@@ -15,10 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const fetchData = async () => {
         try {
             [allCrData, allAvgoData, allSitData, allInv3Data] = await Promise.all([
-                fetch(`${API_BASE_URL}/cr`).then(res => res.json()),
-                fetch(`${API_BASE_URL}/avgo`).then(res => res.json()),
-                fetch(`${API_BASE_URL}/sit`).then(res => res.json()),
-                fetch(`${API_BASE_URL}/inv3`).then(res => res.json())
+                fetch(`${API_BASE_URL}/CR.json`).then(res => res.json()),
+                fetch(`${API_BASE_URL}/AVGO.json`).then(res => res.json()),
+                fetch(`${API_BASE_URL}/SIT.json`).then(res => res.json()),
+                fetch(`${API_BASE_URL}/Inv3.json`).then(res => res.json())
             ]);
 
             populateFilters();

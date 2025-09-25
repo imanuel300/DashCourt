@@ -1,5 +1,6 @@
 using OfficeOpenXml;
 using DashCourtApi.Models;
+using System.Text.Json; // Add for JSON serialization
 
 namespace DashCourtApi.Services
 {
@@ -7,11 +8,13 @@ namespace DashCourtApi.Services
     {
         private readonly string _excelFilesPath;
         private readonly bool _useMockData;
+        private readonly string _jsonOutputPath; // New field for JSON output path
 
-        public ExcelDataService(string excelFilesPath, bool useMockData)
+        public ExcelDataService(string excelFilesPath, bool useMockData, string jsonOutputPath)
         {
             _excelFilesPath = excelFilesPath;
             _useMockData = useMockData;
+            _jsonOutputPath = jsonOutputPath; // Initialize new field
             ExcelPackage.License.SetNonCommercialOrganization("DashCourt");
         }
 
@@ -185,6 +188,37 @@ namespace DashCourtApi.Services
                 }
             }
             return data;
+        }
+
+        public void GenerateJsonFiles()
+        {
+            if (_useMockData) return; // Don't generate JSON if using mock data
+
+            // Ensure the directory exists
+            if (!Directory.Exists(_jsonOutputPath))
+            {
+                Directory.CreateDirectory(_jsonOutputPath);
+            }
+
+            // Generate CR data JSON
+            var crData = GetCRData();
+            string crJson = JsonSerializer.Serialize(crData, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(Path.Combine(_jsonOutputPath, "CR.json"), crJson);
+
+            // Generate AVGO data JSON
+            var avgoData = GetAVGOData();
+            string avgoJson = JsonSerializer.Serialize(avgoData, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(Path.Combine(_jsonOutputPath, "AVGO.json"), avgoJson);
+
+            // Generate SIT data JSON
+            var sitData = GetSITData();
+            string sitJson = JsonSerializer.Serialize(sitData, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(Path.Combine(_jsonOutputPath, "SIT.json"), sitJson);
+
+            // Generate Inv3 data JSON
+            var inv3Data = GetInv3Data();
+            string inv3Json = JsonSerializer.Serialize(inv3Data, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(Path.Combine(_jsonOutputPath, "Inv3.json"), inv3Json);
         }
 
         private int GetCellValueAsInt(ExcelRange cell)
