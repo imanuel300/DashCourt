@@ -9,17 +9,24 @@ o	HTML + TailwindCSS (דרך CDN, בלי קומפילציה).
 o	Chart.js (או Google Charts) עבור גרפים.
 o	JavaScript (Vanilla) לקבלת נתונים מה־API.
 •	Backend (שרת + נתונים):
-o	API שמחזיר JSON מה־DB ( דוטנט קור
-o	מסד נתוני  SQL Server).
+o	API שמחזיר JSON מקבצי אקסל כנתוני דמה (או מ־DB עתידי)
+o	מסד נתוני  SQL Server (עתידי).
 ________________________________________
-3. מבנה הפרויקט
-/project-root
-  /frontend
-    index.html       ← דף הדשבורד
-    style.css        ← הרחבות עיצוב אם צריך
-    app.js           ← קוד JS לקריאות API והצגת נתונים
-  /backend
-    server        ← IIS
+3. מבנה הפרויקט הנוכחי
+/DashCourt
+  /DashCourtApi      ← פרויקט ה־API (Backend)
+    Controllers/
+      DataController.cs  ← בקר לטיפול בבקשות נתונים
+    Models/
+      CRModel.cs, AVGOModel.cs, Inv3Model.cs, SITModel.cs ← מודלי נתונים
+    Services/
+      ExcelDataService.cs  ← שירות לקריאת נתונים מקבצי אקסל
+    appsettings.json     ← קובץ תצורה
+    Program.cs           ← נקודת כניסה של האפליקציה
+  /frontend (תיקיה זו תתווסף בעתיד עבור ה־UI)
+    index.html
+    style.css
+    app.js
  
 ________________________________________
 4. תכולה פונקציונלית
@@ -42,10 +49,18 @@ ________________________________________
 1.	שלב 1 – UI סטטי
 2.	שלב 2 – API Mockיש לי אקסל
 3.	שלב 3 – DB אמיתי
-4.	שלב 4 עדכון נתונים ל DB מקובץ XLS
+4.	שלב 4 – עדכון נתונים ל־DB מקובץ XLS (עתידי)
 5.	שלב 5 – אבטחה ושיפורים
 o	ייעול ביצועים.
 o	התאמה לנייד (Responsive).
 ________________________________________
+
+6. נקודות קצה זמינות (API Endpoints)
+כל נקודות הקצה מחזירות נתוני JSON מקבצי אקסל:
+
+•	CR Data: `http://localhost:5003/Data/cr`
+•	AVGO Data: `http://localhost:5003/Data/avgo`
+•	SIT Data: `http://localhost:5003/Data/sit`
+•	Inv3 Data: `http://localhost:5003/Data/inv3`
 
 
