@@ -344,6 +344,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         datalabels: {
                             anchor: 'end',
                             align: 'top',
+                            textAlign: 'right', // ליישר לימין
                             offset: -40, // Add a small offset from the top
                             color: '#fff', // Set color to white for better visibility inside the bar
                             font: {
@@ -357,6 +358,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 } 
                                 return value.toLocaleString();
                             }
+                           
                         }
                     }
                 ],
