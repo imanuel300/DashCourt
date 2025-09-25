@@ -18,7 +18,7 @@ builder.Services.AddCors(options =>
 });
 
 // Register ExcelDataService as a singleton
-string excelFilesPath = Directory.GetCurrentDirectory(); // Path to the root of the entire DashCourt project
+string excelFilesPath = Path.Combine(Directory.GetCurrentDirectory(), "XLSX"); // Path to the XLSX files
 bool useMockData = builder.Configuration.GetValue<bool>("AppSettings:UseMockData");
 builder.Services.AddSingleton(new ExcelDataService(excelFilesPath, useMockData));
 

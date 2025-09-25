@@ -101,6 +101,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const years = [...new Set(crData.map(item => item.year))].sort();
         const openedData = years.map(year => crData.filter(item => item.year === year).reduce((sum, item) => sum + item.opened, 0));
         const closedData = years.map(year => crData.filter(item => item.year === year).reduce((sum, item) => sum + item.closed, 0));
+        const inventoryData = years.map(year => {
+            const yearCrData = crData.filter(item => item.year === year);
+            const totalOpened = yearCrData.reduce((sum, item) => sum + item.opened, 0);
+            const totalClosed = yearCrData.reduce((sum, item) => sum + item.closed, 0);
+            // Assuming inventory is opened - closed for simplicity in mock data context
+            return totalOpened - totalClosed; // This might need adjustment based on actual inventory logic
+        });
 
         const movementsCtx = document.getElementById('movementsChart').getContext('2d');
         movementsChart = new Chart(movementsCtx, {
@@ -112,21 +119,67 @@ document.addEventListener('DOMContentLoaded', () => {
                         label: 'נפתחו',
                         data: openedData,
                         backgroundColor: '#36A2EB',
+                        datalabels: {
+                            anchor: 'end',
+                            align: 'top',
+                            formatter: (value) => value.toLocaleString() + 'K' // Add K for thousands
+                        }
                     },
                     {
                         label: 'נסגרו',
                         data: closedData,
                         backgroundColor: '#FF6384',
+                        datalabels: {
+                            anchor: 'end',
+                            align: 'top',
+                            formatter: (value) => value.toLocaleString() + 'K'
+                        }
+                    },
+                    {
+                        label: 'מלאי',
+                        data: inventoryData,
+                        type: 'line',
+                        borderColor: '#FFCE56',
+                        fill: false,
+                        yAxisID: 'y1',
+                        datalabels: {
+                            anchor: 'end',
+                            align: 'top',
+                            formatter: (value) => value.toLocaleString()
+                        }
                     }
                 ]
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    datalabels: {
+                        color: '#000',
+                        font: {
+                            weight: 'bold'
+                        }
+                    }
+                },
                 scales: {
-                    x: { stacked: true },
-                    y: { stacked: true }
+                    x: { 
+                        stacked: true 
+                    },
+                    y: { 
+                        stacked: true,
+                        beginAtZero: true
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        grid: {
+                            drawOnChartArea: false,
+                        }
+                    }
                 }
-            }
+            },
+            plugins: [ChartDataLabels]
         });
 
         // CR Chart (קצב סגירת תיקים)
@@ -141,12 +194,31 @@ document.addEventListener('DOMContentLoaded', () => {
                 datasets: [{
                     data: [averageCR * 100, (1 - averageCR) * 100],
                     backgroundColor: ['#4CAF50', '#FFC107'],
-                    hoverOffset: 4
+                    hoverOffset: 4,
+                    datalabels: {
+                        formatter: (value, ctx) => {
+                            return value.toFixed(2) + '%';
+                        },
+                        color: '#fff',
+                        font: {
+                            weight: 'bold'
+                        }
+                    }
                 }]
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
+                    datalabels: {
+                        formatter: (value, ctx) => {
+                            return value.toFixed(2) + '%';
+                        },
+                        color: '#fff',
+                        font: {
+                            weight: 'bold'
+                        }
+                    },
                     tooltip: {
                         callbacks: {
                             label: function(context) {
@@ -162,7 +234,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     }
                 }
-            }
+            },
+            plugins: [ChartDataLabels]
         });
 
         // Average Case Duration Chart (ממוצע אורך חיי תיק בחודשים)
@@ -183,15 +256,30 @@ document.addEventListener('DOMContentLoaded', () => {
                         label: 'ממוצע ימים',
                         data: avgDays,
                         backgroundColor: '#FF9800',
+                        datalabels: {
+                            anchor: 'end',
+                            align: 'top',
+                            formatter: (value) => value.toFixed(1)
+                        }
                     }
                 ]
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    datalabels: {
+                        color: '#000',
+                        font: {
+                            weight: 'bold'
+                        }
+                    }
+                },
                 scales: {
                     y: { beginAtZero: true }
                 }
-            }
+            },
+            plugins: [ChartDataLabels]
         });
 
         // Hearings Chart (דיונים שהתקיימו)
@@ -208,15 +296,30 @@ document.addEventListener('DOMContentLoaded', () => {
                         label: 'מספר דיונים',
                         data: hearingsCount,
                         backgroundColor: '#673AB7',
+                        datalabels: {
+                            anchor: 'end',
+                            align: 'top',
+                            formatter: (value) => value.toLocaleString()
+                        }
                     }
                 ]
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    datalabels: {
+                        color: '#000',
+                        font: {
+                            weight: 'bold'
+                        }
+                    }
+                },
                 scales: {
                     y: { beginAtZero: true }
                 }
-            }
+            },
+            plugins: [ChartDataLabels]
         });
 
     };

@@ -13,3 +13,10 @@ select {
     background-color: #005689;
 }
 
+canvas {
+    max-height: 350px; /* Adjust as needed */
+    min-height: 200px;
+    width: 100% !important; /* Override Chart.js default inline style if necessary */
+    height: auto !important;
+}
+
