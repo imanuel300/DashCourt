@@ -19,7 +19,8 @@ builder.Services.AddCors(options =>
 
 // Register ExcelDataService as a singleton
 string excelFilesPath = Path.Combine(Directory.GetCurrentDirectory(), "XLSX"); // Path to the XLSX files
-string jsonOutputPath = Path.Combine(Directory.GetCurrentDirectory(), "..", "json_data"); // Path to save JSON files in the project root
+string jsonOutputPath = Path.Combine(Directory.GetCurrentDirectory(), "XLSX"); // Path to save JSON files in the XLSX directory
+Console.WriteLine($"JSON output path: {jsonOutputPath}");
 bool useMockData = builder.Configuration.GetValue<bool>("AppSettings:UseMockData");
 var excelDataService = new ExcelDataService(excelFilesPath, useMockData, jsonOutputPath);
 builder.Services.AddSingleton(excelDataService);
