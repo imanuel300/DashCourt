@@ -6,6 +6,7 @@ namespace DashCourtApi.Models
         public string? DateCycle { get; set; }
         public decimal AverageDays { get; set; }
         public int NumberOfCases { get; set; }
+        public int TotalDays { get; set; }
         public string? CaseType { get; set; }
         public string? Procedure { get; set; }
         public string? Court { get; set; }

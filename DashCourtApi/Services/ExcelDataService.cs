@@ -93,6 +93,7 @@ namespace DashCourtApi.Services
                         DateCycle = null, // Not directly available in the provided Excel data
                         AverageDays = GetCellValueAsDecimal(worksheet.Cells[row, 8]),
                         NumberOfCases = 0, // Not directly available in the provided Excel data
+                        TotalDays = GetCellValueAsInt(worksheet.Cells[row, 9]), // Map 'סהכ_ימים'
                         CaseType = GetCellValueAsString(worksheet.Cells[row, 6]),
                         Procedure = GetCellValueAsString(worksheet.Cells[row, 5]),
                         Court = GetCellValueAsString(worksheet.Cells[row, 4]),

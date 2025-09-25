@@ -21,10 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 fetch(`${API_BASE_URL}/Inv3.json`).then(res => res.json())
             ]);
 
-            console.log('Fetched CR Data:', allCrData);
-            console.log('Fetched AVGO Data:', allAvgoData);
-            console.log('Fetched SIT Data:', allSitData);
-            console.log('Fetched Inv3 Data:', allInv3Data);
+            //console.log('Fetched CR Data:', allCrData);
+            //console.log('Fetched AVGO Data:', allAvgoData);
+            //console.log('Fetched SIT Data:', allSitData);
+            //console.log('Fetched Inv3 Data:', allInv3Data);
 
             populateFilters();
             applyFilters();
@@ -249,28 +249,45 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Average Case Duration Chart (ממוצע אורך חיי תיק בחודשים)
-        const avgYears = [...new Set(avgoData.map(item => item.Year))].sort();
-        const avgDays = avgYears.map(year => {
-            const yearData = avgoData.filter(item => item.Year === year);
-            const sum = yearData.reduce((s, item) => s + item.AverageDays, 0);
-            return yearData.length ? sum / yearData.length : 0;
+        const avgDurationDataGrouped = avgoData.reduce((acc, item) => {
+            if (!acc[item.CaseType]) {
+                acc[item.CaseType] = { totalDays: 0, count: 0 };
+            }
+            acc[item.CaseType].totalDays += item.AverageDays;
+            acc[item.CaseType].count++;
+            return acc;
+        }, {});
+
+        const caseTypesRaw = Object.keys(avgDurationDataGrouped);
+        const avgDaysPerCaseTypeRaw = caseTypesRaw.map(caseType => {
+            const data = avgDurationDataGrouped[caseType];
+            return data.count ? data.totalDays / data.count : 0;
         });
+
+        // Sort data from highest to lowest
+        const sortedData = caseTypesRaw.map((caseType, index) => ({
+            caseType: caseType,
+            avgDays: avgDaysPerCaseTypeRaw[index]
+        })).sort((a, b) => b.avgDays - a.avgDays);
+
+        const caseTypes = sortedData.map(item => item.caseType);
+        const avgDaysPerCaseType = sortedData.map(item => item.avgDays.toFixed(1));
 
         const avgDurationCtx = document.getElementById('avgDurationChart').getContext('2d');
         avgDurationChart = new Chart(avgDurationCtx, {
             type: 'bar',
             data: {
-                labels: avgYears,
+                labels: caseTypes,
                 datasets: [
                     {
-                        label: 'ממוצע ימים',
-                        data: avgDays,
-                        backgroundColor: '#FF9800',
-                        datalabels: {
-                            anchor: 'end',
-                            align: 'top',
-                            formatter: (value) => value.toFixed(1)
-                        }
+                        label: 'ממוצע חודשים',
+                        data: avgDaysPerCaseType,
+                        backgroundColor: '#007CB9', // Changed color to #007CB9
+                        // datalabels: { // Removed datalabels to show only on hover
+                        //     anchor: 'end',
+                        //     align: 'top',
+                        //     formatter: (value) => value + ' חודשים'
+                        // }
                     }
                 ]
             },
@@ -278,18 +295,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    datalabels: {
-                        color: '#000',
-                        font: {
-                            weight: 'bold'
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += context.parsed.y + ' חודשים';
+                                }
+                                return label;
+                            }
                         }
-                    }
+                    },
+                    // datalabels: { // Removed datalabels plugin
+                    //     color: '#000',
+                    //     font: {
+                    //         weight: 'bold'
+                    //     }
+                    // }
                 },
                 scales: {
                     y: { beginAtZero: true }
                 }
             },
-            plugins: [ChartDataLabels]
+            // plugins: [ChartDataLabels] // Removed ChartDataLabels plugin from here as well
         });
 
         // Hearings Chart (דיונים שהתקיימו)
