@@ -344,7 +344,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         datalabels: {
                             anchor: 'end',
                             align: 'top',
-                            color: '#000', // Set color to black for testing
+                            offset: -40, // Add a small offset from the top
+                            color: '#fff', // Set color to white for better visibility inside the bar
+                            font: {
+                                size: 19, // Increase font size
+                                weight: 'bold'
+                            },
                             display: true, // Ensure datalabels are displayed
                             formatter: (value) => {
                                 if (value >= 1000) {
@@ -354,18 +359,24 @@ document.addEventListener('DOMContentLoaded', () => {
                             }
                         }
                     }
-                ]
+                ],
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
+                    legend: {
+                        display: false // Hide the legend for this chart
+                    },
                     datalabels: {
-                        color: '#000', // Set color to black for testing
-                        display: true, // Ensure datalabels are displayed
+                        color: '#fff', // Set color to white for better visibility inside the bar
                         font: {
+                            size: 14, // Increase font size
                             weight: 'bold'
-                        }
+                        },
+                        align: 'right', // Align to the right to move it slightly right
+                        anchor: 'end', // Keep anchor at end for top positioning
+                        display: true, // Ensure datalabels are displayed
                     },
                     tooltip: { // Disable tooltip for this chart again
                         enabled: false
