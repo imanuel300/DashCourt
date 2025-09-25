@@ -336,11 +336,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     {
                         label: 'מספר דיונים',
                         data: hearingsCount,
-                        backgroundColor: '#673AB7',
+                        backgroundColor: '#00ABFF', // Changed color to #00ABFF
                         datalabels: {
                             anchor: 'end',
                             align: 'top',
-                            formatter: (value) => value.toLocaleString()
+                            color: '#fff', // Set color to white for better visibility on blue background
+                            formatter: (value) => {
+                                if (value >= 1000) {
+                                    return (value / 1000).toFixed(0) + 'K';
+                                } 
+                                return value.toLocaleString();
+                            }
                         }
                     }
                 ]
@@ -350,14 +356,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 maintainAspectRatio: false,
                 plugins: {
                     datalabels: {
-                        color: '#000',
+                        color: '#fff', // Ensure datalabels plugin is configured globally for this chart
                         font: {
                             weight: 'bold'
                         }
+                    },
+                    tooltip: { // Disable tooltip for this chart
+                        enabled: false
                     }
                 },
                 scales: {
-                    y: { beginAtZero: true }
+                    y: { 
+                        beginAtZero: true,
+                        display: false // Hide y-axis ticks
+                    }
                 }
             },
             plugins: [ChartDataLabels]
