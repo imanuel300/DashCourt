@@ -21,6 +21,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 fetch(`${API_BASE_URL}/Inv3.json`).then(res => res.json())
             ]);
 
+            console.log('Fetched CR Data:', allCrData);
+            console.log('Fetched AVGO Data:', allAvgoData);
+            console.log('Fetched SIT Data:', allSitData);
+            console.log('Fetched Inv3 Data:', allInv3Data);
+
             populateFilters();
             applyFilters();
 
@@ -33,23 +38,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const populateFilters = () => {
         // Populate Years
         const allYears = new Set();
-        allCrData.forEach(item => allYears.add(item.year));
-        allAvgoData.forEach(item => allYears.add(item.year));
-        allSitData.forEach(item => allYears.add(item.year));
-        allInv3Data.forEach(item => allYears.add(item.year));
+        allCrData.forEach(item => allYears.add(item.Year));
+        allAvgoData.forEach(item => allYears.add(item.Year));
+        allSitData.forEach(item => allYears.add(item.Year));
+        allInv3Data.forEach(item => allYears.add(item.Year));
 
         yearSelect.innerHTML = '<option value="all">שנה</option>' + 
             Array.from(allYears).sort((a, b) => b - a).map(year => `<option value="${year}">${year}</option>`).join('');
 
         // Populate Court Types (from CR data as an example)
         const allCourts = new Set();
-        allCrData.forEach(item => allCourts.add(item.court));
+        allCrData.forEach(item => allCourts.add(item.Court));
         courtSelect.innerHTML = '<option value="all">סוג בית משפט</option>' + 
             Array.from(allCourts).sort().map(court => `<option value="${court}">${court}</option>`).join('');
 
         // Populate Case Types (from CR data as an example)
         const allCaseTypes = new Set();
-        allCrData.forEach(item => allCaseTypes.add(item.caseType));
+        allCrData.forEach(item => allCaseTypes.add(item.CaseType));
         caseTypeSelect.innerHTML = '<option value="all">סוג תיק</option>' + 
             Array.from(allCaseTypes).sort().map(caseType => `<option value="${caseType}">${caseType}</option>`).join('');
     };
@@ -61,9 +66,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const filterData = (data) => {
             return data.filter(item => {
-                const matchYear = selectedYear === 'all' || item.year == selectedYear;
-                const matchCourt = selectedCourt === 'all' || item.court === selectedCourt;
-                const matchCaseType = selectedCaseType === 'all' || item.caseType === selectedCaseType;
+                const matchYear = selectedYear === 'all' || item.Year == selectedYear;
+                const matchCourt = selectedCourt === 'all' || item.Court === selectedCourt;
+                const matchCaseType = selectedCaseType === 'all' || item.CaseType === selectedCaseType;
                 return matchYear && matchCourt && matchCaseType;
             });
         };
@@ -72,6 +77,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const filteredAvgoData = filterData(allAvgoData);
         const filteredSitData = filterData(allSitData);
         const filteredInv3Data = filterData(allInv3Data);
+
+        console.log('Filtered CR Data:', filteredCrData);
+        console.log('Filtered AVGO Data:', filteredAvgoData);
+        console.log('Filtered SIT Data:', filteredSitData);
+        console.log('Filtered Inv3 Data:', filteredInv3Data);
 
         updateKPIs(filteredCrData, filteredAvgoData, filteredSitData, filteredInv3Data);
         renderCharts(filteredCrData, filteredAvgoData, filteredSitData, filteredInv3Data);
@@ -98,13 +108,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (hearingsChart) hearingsChart.destroy();
 
         // Movements Chart (תנועות תיקים)
-        const years = [...new Set(crData.map(item => item.year))].sort();
-        const openedData = years.map(year => crData.filter(item => item.year === year).reduce((sum, item) => sum + item.opened, 0));
-        const closedData = years.map(year => crData.filter(item => item.year === year).reduce((sum, item) => sum + item.closed, 0));
+        const years = [...new Set(crData.map(item => item.Year))].sort();
+        const openedData = years.map(year => crData.filter(item => item.Year === year).reduce((sum, item) => sum + item.Opened, 0));
+        const closedData = years.map(year => crData.filter(item => item.Year === year).reduce((sum, item) => sum + item.Closed, 0));
         const inventoryData = years.map(year => {
-            const yearCrData = crData.filter(item => item.year === year);
-            const totalOpened = yearCrData.reduce((sum, item) => sum + item.opened, 0);
-            const totalClosed = yearCrData.reduce((sum, item) => sum + item.closed, 0);
+            const yearCrData = crData.filter(item => item.Year === year);
+            const totalOpened = yearCrData.reduce((sum, item) => sum + item.Opened, 0);
+            const totalClosed = yearCrData.reduce((sum, item) => sum + item.Closed, 0);
             // Assuming inventory is opened - closed for simplicity in mock data context
             return totalOpened - totalClosed; // This might need adjustment based on actual inventory logic
         });
@@ -183,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // CR Chart (קצב סגירת תיקים)
-        const crValues = crData.map(item => item.cr);
+        const crValues = crData.map(item => item.CR);
         const averageCR = crValues.length ? crValues.reduce((sum, cr) => sum + cr, 0) / crValues.length : 0;
 
         const crCtx = document.getElementById('crChart').getContext('2d');
@@ -239,10 +249,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Average Case Duration Chart (ממוצע אורך חיי תיק בחודשים)
-        const avgYears = [...new Set(avgoData.map(item => item.year))].sort();
+        const avgYears = [...new Set(avgoData.map(item => item.Year))].sort();
         const avgDays = avgYears.map(year => {
-            const yearData = avgoData.filter(item => item.year === year);
-            const sum = yearData.reduce((s, item) => s + item.averageDays, 0);
+            const yearData = avgoData.filter(item => item.Year === year);
+            const sum = yearData.reduce((s, item) => s + item.AverageDays, 0);
             return yearData.length ? sum / yearData.length : 0;
         });
 
@@ -283,8 +293,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Hearings Chart (דיונים שהתקיימו)
-        const sitYears = [...new Set(sitData.map(item => item.year))].sort();
-        const hearingsCount = sitYears.map(year => sitData.filter(item => item.year === year).reduce((sum, item) => sum + item.hearings, 0));
+        const sitYears = [...new Set(sitData.map(item => item.Year))].sort();
+        const hearingsCount = sitYears.map(year => sitData.filter(item => item.Year === year).reduce((sum, item) => sum + item.Hearings, 0));
 
         const hearingsCtx = document.getElementById('hearingsChart').getContext('2d');
         hearingsChart = new Chart(hearingsCtx, {
