@@ -12,7 +12,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
-        builder => builder.WithOrigins("http://localhost:5500") // Replace with your frontend URL
+        builder => builder.WithOrigins("http://localhost:5500", "http://localhost:8000") // Replace with your frontend URL
                             .AllowAnyHeader()
                             .AllowAnyMethod());
 });
