@@ -78,10 +78,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const filteredSitData = filterData(allSitData);
         const filteredInv3Data = filterData(allInv3Data);
 
-        console.log('Filtered CR Data:', filteredCrData);
-        console.log('Filtered AVGO Data:', filteredAvgoData);
-        console.log('Filtered SIT Data:', filteredSitData);
-        console.log('Filtered Inv3 Data:', filteredInv3Data);
+        //console.log('Filtered CR Data:', filteredCrData);
+        //console.log('Filtered AVGO Data:', filteredAvgoData);
+        //console.log('Filtered SIT Data:', filteredSitData);
+        //console.log('Filtered Inv3 Data:', filteredInv3Data);
 
         updateKPIs(filteredCrData, filteredAvgoData, filteredSitData, filteredInv3Data);
         renderCharts(filteredCrData, filteredAvgoData, filteredSitData, filteredInv3Data);
