@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    Chart.register(ChartDataLabels); // Register the datalabels plugin globally
     const API_BASE_URL = 'DashCourtApi/XLSX'; // Changed to point to the directory containing JSON files
 
     // Global data storage
@@ -343,7 +344,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         datalabels: {
                             anchor: 'end',
                             align: 'top',
-                            color: '#fff', // Set color to white for better visibility on blue background
+                            color: '#000', // Set color to black for testing
+                            display: true, // Ensure datalabels are displayed
                             formatter: (value) => {
                                 if (value >= 1000) {
                                     return (value / 1000).toFixed(0) + 'K';
@@ -359,19 +361,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 maintainAspectRatio: false,
                 plugins: {
                     datalabels: {
-                        color: '#fff', // Ensure datalabels plugin is configured globally for this chart
+                        color: '#000', // Set color to black for testing
+                        display: true, // Ensure datalabels are displayed
                         font: {
                             weight: 'bold'
                         }
                     },
-                    tooltip: { // Disable tooltip for this chart
+                    tooltip: { // Disable tooltip for this chart again
                         enabled: false
                     }
                 },
                 scales: {
                     y: { 
                         beginAtZero: true,
-                        display: false // Hide y-axis ticks
+                        display: false // Re-enable y-axis ticks
                     }
                 }
             },
