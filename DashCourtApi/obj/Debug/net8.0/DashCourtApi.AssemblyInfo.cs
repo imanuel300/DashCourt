@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DashCourtApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+48a95a53bd225852da0e229a2a53f3997cafc682")]
 [assembly: System.Reflection.AssemblyProductAttribute("DashCourtApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DashCourtApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -17,7 +17,7 @@ builder.Services.AddCors(options =>
 });
 
 // Register ExcelDataService as a singleton
-string excelFilesPath = Path.Combine(Directory.GetCurrentDirectory(), "..", ".."); // Adjust this path if needed
+string excelFilesPath = Path.Combine(Directory.GetCurrentDirectory(), ".."); // Path to the root of the entire DashCourt project
 builder.Services.AddSingleton(new ExcelDataService(excelFilesPath));
 
 var app = builder.Build();

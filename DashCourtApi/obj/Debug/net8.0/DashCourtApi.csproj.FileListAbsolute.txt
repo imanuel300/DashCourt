@@ -39,3 +39,4 @@ D:\www\DashCourt\DashCourtApi\obj\Debug\net8.0\refint\DashCourtApi.dll
 D:\www\DashCourt\DashCourtApi\obj\Debug\net8.0\DashCourtApi.pdb
 D:\www\DashCourt\DashCourtApi\obj\Debug\net8.0\DashCourtApi.genruntimeconfig.cache
 D:\www\DashCourt\DashCourtApi\obj\Debug\net8.0\ref\DashCourtApi.dll
+D:\www\DashCourt\DashCourtApi\obj\Debug\net8.0\DashCourtApi.sourcelink.json

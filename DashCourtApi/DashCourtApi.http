@@ -1,4 +1,4 @@
-@DashCourtApi_HostAddress = http://localhost:5044
+@DashCourtApi_HostAddress = http://localhost:5003
 
 GET {{DashCourtApi_HostAddress}}/weatherforecast/
 Accept: application/json

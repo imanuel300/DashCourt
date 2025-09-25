@@ -10,7 +10,12 @@ namespace DashCourtApi.Services
         public ExcelDataService(string excelFilesPath)
         {
             _excelFilesPath = excelFilesPath;
-            ExcelPackage.License.SetNonCommercialOrganization("DashCourt");
+            // Set the license context for EPPlus
+            // For EPPlus 8 and later, use ExcelPackage.License
+            if (ExcelPackage.LicenseContext == LicenseContext.Unspecified) // Check if already set
+            {
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // Or LicenseContext.Commercial
+            }
         }
 
         public List<CRModel> GetCRData(string fileName = "CR.xlsx")
